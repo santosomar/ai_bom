@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "AI BOM",
+    "type": "object",
+    "properties": {
+      "ModelDetails": {
+        "type": "object",
+        "properties": {
+          "Name": { "type": "string" },
+          "Version": { "type": "string" },
+          "Type": { "type": "string" },
+          "Author": { "type": "string" },
+          "Licenses": { "type": "array", "items": { "type": "string" } },
+          "Libraries": { "type": "array", "items": { "type": "string" }, "required": false },
+          "Source": { "type": "string" },
+          "BOMGeneration": {
+            "type": "object",
+            "properties": {
+              "Timestamp": { "type": "string" },
+              "Method": { "type": "string" },
+              "GeneratedBy": { "type": "string" }
+            },
+            "required": false
+          },
+          "OtherReferences": { "type": "array", "items": { "type": "string" }, "required": false },
+          "Tags": { "type": "array", "items": { "type": "string" }, "required": false }
+        },
+        "required": ["Name", "Version", "Type", "Author", "Licenses", "Source"]
+      },
+      "ModelArchitecture": {
+        "type": "object",
+        "properties": {
+          "Datasets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Name": { "type": "string" },
+                "Source": { "type": "string" },
+                "Usage": { "type": "string" }
+              },
+              "required": ["Name", "Source"]
+            }
+          },
+          "Architecture": { "type": "string", "required": false },
+          "ArchitectureFamily": { "type": "string", "required": false },
+          "ParentModel": { "type": "object", "properties": {
+              "Name": { "type": "string" },
+              "Version": { "type": "string" },
+              "Source": { "type": "string" }
+            }, "required": false
+          },
+          "BaseModel": { "type": "object", "properties": {
+              "Name": { "type": "string" },
+              "Version": { "type": "string" },
+              "Source": { "type": "string" }
+            }, "required": false
+          },
+          "Input": { "type": "string" },
+          "Output": { "type": "string" },
+          "Hardware": { "type": "string", "required": false },
+          "Software": { "type": "string", "required": false },
+          "SoftwareRequiredForExecution": { "type": "boolean" }
+        },
+        "required": ["Datasets", "Input", "Output", "SoftwareRequiredForExecution"]
+      },
+      "Usage": {
+        "type": "object",
+        "properties": {
+          "IntendedUse": { "type": "string" },
+          "OutOfScopeUsage": { "type": "string" },
+          "MisuseOrMaliciousUse": { "type": "string" }
+        },
+        "required": ["IntendedUse", "OutOfScopeUsage", "MisuseOrMaliciousUse"]
+      },
+      "Considerations": {
+        "type": "object",
+        "properties": {
+          "EnvironmentalImpact": { "type": "string", "required": false },
+          "EthicalConsiderations": { "type": "string", "required": false }
+        },
+        "required": []
+      },
+      "Authenticity": {
+        "type": "object",
+        "properties": {
+          "Authenticity": { "type": "string", "required": false }
+        },
+        "required": []
+      }
+    },
+    "required": ["ModelDetails", "ModelArchitecture", "Usage"]
+  }
